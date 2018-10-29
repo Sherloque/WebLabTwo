@@ -1,35 +1,35 @@
-<?php
-	session_start();
-?>
-
 <html>
 <head>
-<link href="login_style.css" type="text/css" rel="stylesheet"/>
-	  <link   href="css/bootstrap.min.css" rel="stylesheet">
- <script type="text/javascript" src="js/jquery-3.3.1.js"> </script>
+   <link   href="css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 <script type="text/javascript">
 function do_login()
 {
  var login=$("#login").val();
- var pass=$("#password").val();
+ var password=$("#password").val();
  if(login!="" && password!="")
  {
-  $("#loading_spinner").css({"display":"block"});
   $.ajax
   ({
   type:'post',
   url:'login.php',
   data:{
-   do_login:"do_login",
    login:login,
-   password:pass
+   password:password
   },
   success:function(response) {
+    if (!$.trim(response)){
+    alert("What follows is blank: " + response);
+}
+else{
+    alert("What follows is not blank: " + response);
+}
   if(response=="success")
+  {
     window.location.href="table.php";
+  }
   else
   {
-    $("#loading_spinner").css({"display":"none"});
     alert("Wrong Details");
   }
   }
@@ -46,12 +46,17 @@ function do_login()
 </script>
 </head>
 <body>
+
  <form method="post" action="login.php" onsubmit="return do_login();">
-Username:<br>
-<input type="text" name="login"><br>
-User password:<br>
-<input type="password" name="password"><br>
-<input type ="Submit" value = "Enter" ><br>
-</form>
+  Username:<br>
+  <input type="text" name="login" id="login">
+  <br>
+  User password:<br>
+  <input type="password" name="password" id="password">
+  <br>
+  <input type="submit" value="Enter">
+ </form>
+
+</div>
 </body>
 </html>

@@ -33,6 +33,7 @@ $result = mysqli_query($con,"SELECT * FROM users WHERE login='$login'");
     $myrow = mysqli_fetch_array($result);
     if (empty($myrow['password']))
     {
+      echo ($login);
     exit ("Sorry, password field is empty *LAUGHS*" );
     }
     else {
@@ -40,13 +41,11 @@ $result = mysqli_query($con,"SELECT * FROM users WHERE login='$login'");
     $_SESSION['login']=$myrow['login'];
     $_SESSION['id']=$myrow['id'];
     $_SESSION['role']=$myrow['role'];
-    //echo "You finally succeeded, looser! <a href='profile.html'>There is a reserved table for lonely people like you</a>";
-    echo "success";
+    echo ("success");
     }
  else {
 
     exit ("Sorry,something is wrong.");
     }
-    exit();
     }
     ?>

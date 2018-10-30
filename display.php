@@ -8,7 +8,36 @@ session_start();
   <link   href="css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
-<body>
+
+<script>
+$(document).ready(function(){
+
+ // Delete
+ $("btn").click(function(){
+   var el = this;
+  var butid = this.id;
+
+  // AJAX Request
+  $.ajax({
+   url: 'remove.php',
+   type: 'POST',
+   data: { id:butid },
+   success: function(response){
+
+    // Removing row from HTML Table
+    $(el).closest('tr').css('background','tomato');
+    $(el).closest('tr').fadeOut(800, function(){
+     $(this).remove();
+    });
+
+   }
+  });
+
+ });
+
+});
+</script>
+
 
 <?php
 $servername = "localhost";
@@ -48,7 +77,7 @@ else{
     echo  '<th scope="row">'.$row["id"].'</th>';
     echo  '<td>'.$row["login"].'</td>';
     echo '<td><a class = "btn" href="profile.php?id='.$row["id"].'">View profile</a>&nbsp&nbsp&nbsp';
-    echo '<a class = "btn btn-danger" href="delete.php?id='.$row["id"].'">Delete user</a></td>';
+    echo '<btn class = "btn btn-danger yeet" id='.$row["id"].'>Delete user</btn></td>';
     echo '</tr>';
     }
   echo '</tbody>';
